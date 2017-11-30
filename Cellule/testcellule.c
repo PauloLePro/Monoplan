@@ -15,7 +15,7 @@ int main(){
 
     cellule.chainecarac = chainecarac;
 
-    feuille->celluleExistant = list_insert(feuille->celluleExistant,&cellule);
+    feuille.celluleExistant = list_insert(feuille.celluleExistant,&cellule);
 
     analyse(&cellule);
 

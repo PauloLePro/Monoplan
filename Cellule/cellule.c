@@ -5,7 +5,7 @@
 #include "cellule.h"
 
 operateur_t operateur[4];
-feuille_t* feuille;
+feuille_t feuille;
 
 void initialisationOperateur(){
 
@@ -23,9 +23,9 @@ void initialisationOperateur(){
 
 
 
-    feuille->nomfeuille = "feuilletest";
-    feuille->colonneslettre = 26;
-    feuille->lignesnombre = 50;
+    feuille.nomfeuille = "feuilletest";
+    feuille.colonneslettre = 26;
+    feuille.lignesnombre = 50;
 
 }
 
@@ -38,9 +38,11 @@ void analyse(s_cellule* cellule){
     cellule->valeur = 0.0;
     cellule->nombreDeToken = 0;
 
-    char* tok = strtok(cellule->chainecarac," ");
+    char *chainecarac = strdup(cellule->chainecarac);
 
-    if(strcmp(tok,"=") != 0){
+    char* tok = strtok(chainecarac," ");
+
+    if(strcmp(tok,"=") == 0){
 
         while (tok != NULL) {
 
@@ -75,7 +77,7 @@ void analyse(s_cellule* cellule){
                 }
             }
 
-            while (feuille->celluleExistant->next != NULL) {
+            while (feuille.celluleExistant->next != NULL) {
 
                 if (strcmp(tok, cellule->nomcellule) == 0) {
 

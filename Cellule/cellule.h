@@ -50,7 +50,7 @@ void soustraction(pile_t* pile);
 void division(pile_t* pile);
 
 extern operateur_t operateur[4];
-extern feuille_t* feuille;
+extern feuille_t feuille;
 
 void initialisationOperateur();
 void analyse(s_cellule* cellule);
