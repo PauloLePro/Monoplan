@@ -6,16 +6,18 @@
 
 int main(){
 
-    init();
+    initialisationOperateur();
 
-    feuille_t* feuille;
-    s_cellule* cellule;
+    s_cellule cellule;
+    char* chainecarac= "= 2 3 +";
 
-    cellule->chainecarac = "5 6 +";
+    cellule.nomcellule = "F3";
+
+    cellule.chainecarac = chainecarac;
 
     feuille->celluleExistant = list_insert(feuille->celluleExistant,&cellule);
 
-    analyse(&feuille,&cellule);
+    analyse(&cellule);
 
     return 0;
 }

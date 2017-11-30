@@ -18,6 +18,8 @@ typedef struct cellule{
     double valeur;
     node_t* token;
     node_t* refcellule;
+
+    int nombreDeToken;
 }s_cellule;
 
 typedef struct operateur{
@@ -48,9 +50,10 @@ void soustraction(pile_t* pile);
 void division(pile_t* pile);
 
 extern operateur_t operateur[4];
+extern feuille_t* feuille;
 
-void init();
-void analyse(feuille_t* feuille,s_cellule* cellule);
+void initialisationOperateur();
+void analyse(s_cellule* cellule);
 void evaluation(s_cellule* cellule);
 
 #endif //MONOPLAN_CELLULE_H

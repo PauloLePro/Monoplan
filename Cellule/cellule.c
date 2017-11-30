@@ -5,8 +5,9 @@
 #include "cellule.h"
 
 operateur_t operateur[4];
+feuille_t* feuille;
 
-void init(){
+void initialisationOperateur(){
 
     operateur[0].nomoperation = "+";
     operateur[0].operator = &addition;
@@ -20,61 +21,92 @@ void init(){
     operateur[3].nomoperation = "/";
     operateur[3].operator = &division;
 
+
+
+    feuille->nomfeuille = "feuilletest";
+    feuille->colonneslettre = 26;
+    feuille->lignesnombre = 50;
+
 }
 
 
 
-void analyse(feuille_t* feuille,s_cellule* cellule){
+void analyse(s_cellule* cellule){
 
-    double valeur = 0;
+    double valeur = 0.0;
+    cellule->token = list_create();
+    cellule->valeur = 0.0;
+    cellule->nombreDeToken = 0;
 
     char* tok = strtok(cellule->chainecarac," ");
 
-    while (tok != NULL){
+    if(strcmp(tok,"=") != 0){
 
-        valeur = strtod(tok,NULL);
+        while (tok != NULL) {
 
-        if(valeur != 0.0){
-            s_token* new = malloc(sizeof(s_token));
-            new->type = VALUE;
-            new->value.cst = valeur;
+            valeur =strtod(tok, NULL);
 
-            cellule->token = list_insert(cellule->token,new);
-        }
-
-        for (int j = 0; j < 4; ++j) {
-
-            if(strcmp(tok, operateur[j].nomoperation)==0){
-                s_token* new = malloc(sizeof(s_token));
-                new->type = OPERATOR;
-                new->value.operator = operateur[j].operator;
-
-                cellule->token = list_insert(cellule->token,new);
+            s_token *new = malloc(sizeof(s_token));
+            if (new == NULL){
+                return;
             }
-        }
 
-        while(feuille->celluleExistant->next != NULL){
-            if(strcmp(tok, cellule->nomcellule)==0){
-                s_token* new = malloc(sizeof(s_token));
-                new->type = REF;
-                new->value.ref = cellule->refcellule->val;
 
-                cellule->token = list_insert(cellule->token,new);
+            if (valeur != 0.0) {
+
+                new->type = VALUE;
+                new->value.cst = valeur;
+                cellule->token = list_insert(cellule->token, new);
+
+                cellule->nombreDeToken++;
+
             }
-        }
 
-        tok = strtok(NULL," ");
+            for (int j = 0; j < 4; ++j) {
+
+                if (strcmp(tok, operateur[j].nomoperation) == 0) {
+
+
+                    new->type = OPERATOR;
+                    new->value.operator = operateur[j].operator;
+
+                    cellule->token = list_insert(cellule->token, new);
+                    cellule->nombreDeToken++;
+                }
+            }
+
+            while (feuille->celluleExistant->next != NULL) {
+
+                if (strcmp(tok, cellule->nomcellule) == 0) {
+
+                    new->type = REF;
+                    new->value.ref = cellule->refcellule->val;
+
+                    cellule->token = list_insert(cellule->token, new);
+                    cellule->nombreDeToken++;
+                }
+            }
+
+            tok = strtok(NULL, " ");
+        }
     }
 
     return;
 }
 
-/*void evalutation(s_cellule* cellule){
+void evalutation(s_cellule* cellule){
 
-    while(cellule->token->next != NULL){
-        if(cellule->token->val ==)
+    if(cellule->token == NULL){
+        return;
     }
-}*/
+
+    pile_t* pile = pile_creer(cellule->nombreDeToken);
+
+    for (int i = 0; i < cellule->nombreDeToken; ++i) {
+        
+
+    }
+}
 
 void addition(pile_t* pile){
     double a , b, result;
