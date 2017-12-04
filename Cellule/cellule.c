@@ -31,6 +31,7 @@ void analyse(s_cellule* cellule){
     cellule->token = list_create();
     cellule->valeur = 0.0;
     cellule->nombreDeToken = 0;
+    node_t *listeCelluleExistant = feuille.celluleExistant;
 
     char *chainecarac = strdup(cellule->chainecarac);
 
@@ -71,16 +72,19 @@ void analyse(s_cellule* cellule){
                 }
             }
 
-            while (feuille.celluleExistant->next != NULL) {
+            while (listeCelluleExistant->next != NULL) {
 
-                if (strcmp(tok, cellule->nomcellule) == 0) {
+                if (strcmp(tok, listeCelluleExistant->val) == 0) {
 
+                    new->value.ref = listeCelluleExistant;
                     new->type = REF;
                     new->value.ref = cellule->refcellule->val;
 
                     cellule->token = list_append(cellule->token, new);
                     cellule->nombreDeToken++;
                 }
+
+                listeCelluleExistant = listeCelluleExistant->next;
             }
 
             tok = strtok(NULL, " ");
