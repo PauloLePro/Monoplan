@@ -18,6 +18,10 @@ int main(){
     feuille.celluleExistant = list_insert(feuille.celluleExistant,&cellule);
 
     analyse(&cellule);
+    evaluation(&cellule);
+
+    printf("%s\n",cellule.chainecarac);
+    printf("%lf\n",cellule.valeur);
 
     return 0;
 }

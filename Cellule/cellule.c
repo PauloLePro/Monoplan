@@ -1,7 +1,3 @@
-//
-// Created by guerocpa on 23/11/17.
-//
-
 #include "cellule.h"
 
 operateur_t operateur[4];
@@ -28,8 +24,6 @@ void initialisationOperateur(){
     feuille.lignesnombre = 50;
 
 }
-
-
 
 void analyse(s_cellule* cellule){
 
@@ -58,7 +52,7 @@ void analyse(s_cellule* cellule){
 
                 new->type = VALUE;
                 new->value.cst = valeur;
-                cellule->token = list_insert(cellule->token, new);
+                cellule->token = list_append(cellule->token, new);
 
                 cellule->nombreDeToken++;
 
@@ -72,7 +66,7 @@ void analyse(s_cellule* cellule){
                     new->type = OPERATOR;
                     new->value.operator = operateur[j].operator;
 
-                    cellule->token = list_insert(cellule->token, new);
+                    cellule->token = list_append(cellule->token, new);
                     cellule->nombreDeToken++;
                 }
             }
@@ -84,7 +78,7 @@ void analyse(s_cellule* cellule){
                     new->type = REF;
                     new->value.ref = cellule->refcellule->val;
 
-                    cellule->token = list_insert(cellule->token, new);
+                    cellule->token = list_append(cellule->token, new);
                     cellule->nombreDeToken++;
                 }
             }
@@ -96,18 +90,37 @@ void analyse(s_cellule* cellule){
     return;
 }
 
-void evalutation(s_cellule* cellule){
+void evaluation(s_cellule* cellule){
 
     if(cellule->token == NULL){
         return;
     }
 
+    s_token* token = NULL;
+    s_cellule* celluleref;
+    node_t* listetoken = cellule->token;
     pile_t* pile = pile_creer(cellule->nombreDeToken);
 
     for (int i = 0; i < cellule->nombreDeToken; ++i) {
-        
+        token = list_get_data(listetoken);
 
+        if(token->type == VALUE){
+            pile_empiler(pile, token->value.cst);
+        }
+        if(token->type == REF){
+            celluleref = token->value.ref;
+            pile_empiler(pile,celluleref->valeur);
+        }
+        if(token->type == OPERATOR){
+            token->value.operator(pile);
+        }
+
+        listetoken = listetoken->next;
     }
+
+    pile_depiler(pile,&cellule->valeur);
+
+    return;
 }
 
 void addition(pile_t* pile){
@@ -164,4 +177,3 @@ void division(pile_t* pile){
 
     return;
 }
-
