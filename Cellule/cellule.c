@@ -34,6 +34,10 @@ void analyse(s_cellule* cellule){
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
 
+    char testchar;
+    int testint;
+    double testdouble;
+
     char *chainecarac = strdup(cellule->chainecarac);
 
     char* tok = strtok(chainecarac," ");
@@ -73,24 +77,30 @@ void analyse(s_cellule* cellule){
                 }
             }
 
-            while (listeCelluleExistant->next != NULL) {
 
-                c = list_get_data(listeCelluleExistant);
+            if((sscanf(tok,"%c%d",&testchar, &testint)==2) && (sscanf(tok,"%lf",&testdouble) != 1)){
 
-                if (strcmp(tok, c->nomcellule) == 0) {
+                while (listeCelluleExistant->next != NULL) {
 
-                    new->value.ref = listeCelluleExistant;
-                    new->type = REF;
-                    new->value.ref = cellule->refcellule->val;
+                    c = list_get_data(listeCelluleExistant);
 
-                    cellule->token = list_append(cellule->token, new);
-                    cellule->nombreDeToken++;
+                    if (strcmp(tok, c->nomcellule) == 0) {
+
+                        new->value.ref = listeCelluleExistant;
+                        new->type = REF;
+                        new->value.ref = cellule->refcellule->val;
+
+                        cellule->token = list_append(cellule->token, new);
+                        cellule->nombreDeToken++;
+                    }
+
+                    listeCelluleExistant = listeCelluleExistant->next;
                 }
 
-                listeCelluleExistant = listeCelluleExistant->next;
             }
 
             tok = strtok(NULL, " ");
+
         }
     }
 
