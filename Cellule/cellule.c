@@ -33,6 +33,7 @@ void analyse(s_cellule* cellule){
     cellule->nombreDeToken = 0;
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
+    s_cellule* dep = listeCelluleExistant->val;
 
     char testchar;
     int testint;
@@ -86,11 +87,11 @@ void analyse(s_cellule* cellule){
 
                     if (strcmp(tok, c->nomcellule) == 0) {
 
-                        new->value.ref = listeCelluleExistant;
-                        new->type = REF;
-                        new->value.ref = cellule->refcellule->val;
 
+                        new->type = REF;
+                        new->value.ref = listeCelluleExistant->val;
                         cellule->token = list_append(cellule->token, new);
+                        dep->refcellule = list_insert(dep->refcellule, cellule);
                         cellule->nombreDeToken++;
                     }
 

@@ -32,6 +32,18 @@ int main(){
     printf("%s\n",cellule1.chainecarac);
     printf("%lf\n",cellule1.valeur);
 
+    s_cellule cellule2;
+    char* chainecarac2= "= F1 12 +";
+    cellule2.nomcellule = "F6";
+    cellule2.chainecarac = chainecarac2;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule2);
+
+    analyse(&cellule2);
+    evaluation(&cellule2);
+
+    printf("%s\n",cellule2.chainecarac);
+    printf("%lf\n",cellule2.valeur);
+
 
     return 0;
 }
