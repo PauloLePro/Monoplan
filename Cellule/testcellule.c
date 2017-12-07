@@ -137,12 +137,9 @@ int main(){
     printf("%s\n",cellule1.chainecarac);
     printf("%lf\n",cellule1.valeur);
 
-    printf("\n");
-    printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
-
 
     s_cellule cellule2;
-    char* chainecarac2= "= A2 18 +";
+    char* chainecarac2= "= A1 A2 +";
     cellule2.nomcellule = "A3";
     cellule2.chainecarac = chainecarac2;
     feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule2);
@@ -154,7 +151,7 @@ int main(){
     printf("%s\n",cellule2.chainecarac);
     printf("%lf\n",cellule2.valeur);
 
-
+/*
     s_cellule cellule3;
     char* chainecarac3= "= 2 A2 +";
     cellule3.nomcellule = "A4";
@@ -184,6 +181,6 @@ int main(){
 
     printf("\n");
     printf("nb predecesseur de A2: %d\n",cellule1.nombreDePredecesseur);
-
+*/
     return 0;
 }

@@ -109,6 +109,8 @@ void analyse(s_cellule* cellule){
 
             }
 
+            listeCelluleExistant = feuille.celluleExistant;
+
             tok = strtok(NULL, " ");
 
         }
@@ -130,7 +132,7 @@ void evaluation(s_cellule* cellule){
         node_t* listetoken = cellule->token;
         pile_t* pile = pile_creer(cellule->nombreDeToken);
 
-        for (int i = 0; i < cellule->nombreDeToken; ++i) {// On parcourt tout les tokens qu'on à obtenu grace a analyse
+        for (int i = 0; i < cellule->nombreDeToken; ++i) {// On parcourt tout les tokens qu'on à obtenu grace à analyse
             token = list_get_data(listetoken);
 
             if(token->type == VALUE){
