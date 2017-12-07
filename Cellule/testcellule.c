@@ -178,6 +178,46 @@ int main(){
     printf("%lf\n",cellule4.valeur);
 
 
+
+
+
+
+
+    printf("\n");
+    printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
+
+    printf("nb predecesseur de A2: %d\n",cellule1.nombreDePredecesseur);
+
+    printf("nb predecesseur de A3: %d\n",cellule2.nombreDePredecesseur);
+
+    printf("nb predecesseur de A4: %d\n",cellule3.nombreDePredecesseur);
+
+    printf("nb predecesseur de A5: %d\n",cellule4.nombreDePredecesseur);
+    printf("\n");
+
+
+    chainecarac= "= 100 25 +";
+    cellule.chainecarac = chainecarac;
+    analyse(&cellule);
+    evaluation(&cellule);
+
+    printf("%s\n",cellule.chainecarac);
+    printf("%lf\n",cellule.valeur);
+
+    printf("%s\n",cellule1.chainecarac);
+    printf("%lf\n",cellule1.valeur);
+
+    printf("%s\n",cellule2.chainecarac);
+    printf("%lf\n",cellule2.valeur);
+
+    printf("%s\n",cellule3.chainecarac);
+    printf("%lf\n",cellule3.valeur);
+
+    printf("%s\n",cellule4.chainecarac);
+    printf("%lf\n",cellule4.valeur);
+
+    /*graphedevaluation(feuille.celluleExistant);
+
     printf("\n");
     printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
 
@@ -192,6 +232,6 @@ int main(){
 
     printf("\n");
     printf("nb predecesseur de A5: %d\n",cellule4.nombreDePredecesseur);
-
+*/
     return 0;
 }

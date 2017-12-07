@@ -59,6 +59,7 @@ void division(pile_t* pile);
 void initialisationOperateur();
 void analyse(s_cellule* cellule);
 void evaluation(s_cellule* cellule);
+void graphedevaluation(node_t *listeCelluleExistant);
 
 extern operateur_t operateur[4];
 extern feuille_t feuille;

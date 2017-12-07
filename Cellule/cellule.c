@@ -110,7 +110,6 @@ void analyse(s_cellule* cellule){
             }
 
             listeCelluleExistant = feuille.celluleExistant;
-
             tok = strtok(NULL, " ");
 
         }
@@ -157,6 +156,46 @@ void evaluation(s_cellule* cellule){
         fprintf(stderr,"Error syntaxe cellule: \"%s\"\n",cellule->nomcellule);
         return ;
     }
+
+    return;
+}
+
+void graphedevaluation(node_t *listeCelluleExistant){
+    s_cellule* c = NULL;
+
+    c = list_get_data(listeCelluleExistant);
+
+    char *chainecarac = strdup(c->chainecarac);
+
+    char* tok = strtok(chainecarac," ");
+
+    while (listeCelluleExistant->next != NULL) {
+
+        while (tok != NULL){
+
+            while (listeCelluleExistant->next != NULL) {
+                c = list_get_data(listeCelluleExistant);
+
+                if (strcmp(tok, c->nomcellule) == 0){
+                    analyse(listeCelluleExistant->val);
+                    evaluation(listeCelluleExistant->val);
+
+                    c->nombreDePredecesseur--;
+
+                    list_head_remove(listeCelluleExistant);
+                }
+
+                listeCelluleExistant = listeCelluleExistant->next;
+
+            }
+
+            tok = strtok(NULL, " ");
+        }
+
+    }
+
+
+
 
     return;
 }
