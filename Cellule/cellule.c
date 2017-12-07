@@ -28,7 +28,7 @@ void initialisationOperateur(){
 void analyse(s_cellule* cellule){
 
     double valeur = 0.0;
-    int nombreDePredecesseur = 0;
+    cellule->nombreDePredecesseur = 0;
     cellule->token = list_create();
     cellule->valeur = 0.0;
     cellule->nombreDeToken = 0;
@@ -36,7 +36,7 @@ void analyse(s_cellule* cellule){
     cellule->nombreOperateur = 0;
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
-    s_cellule* dep = listeCelluleExistant->val;
+    s_cellule* celluleprecedente = listeCelluleExistant->val;
 
     char testchar;
     int testint;
@@ -96,11 +96,12 @@ void analyse(s_cellule* cellule){
                         new->type = REF;
                         new->value.ref = listeCelluleExistant->val;
                         cellule->token = list_append(cellule->token, new);
-                        dep->refcellule = list_insert(dep->refcellule, cellule);
+                        celluleprecedente->refcellule = list_insert(celluleprecedente->refcellule, cellule);
 
                         cellule->nombreDeValeur++;
                         cellule->nombreDeToken++;
-                        cellule->nombreDePredecesseur++;
+
+                        celluleprecedente->nombreDePredecesseur++;
                     }
 
                     listeCelluleExistant = listeCelluleExistant->next;

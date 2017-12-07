@@ -5,7 +5,7 @@
 #include "cellule.h"
 
 int main(){
-
+/*
     initialisationOperateur();
 
     s_cellule cellule;
@@ -92,7 +92,7 @@ int main(){
     }
 
 
-/*
+
     printf("%s\n",cellule.chainecarac);
     printf("%lf\n",cellule.valeur);
 
@@ -108,6 +108,36 @@ int main(){
     printf("%s\n",cellule4.chainecarac);
     printf("%lf\n",cellule4.valeur);
 */
+
+
+    initialisationOperateur();
+
+    s_cellule cellule;
+    char* chainecarac= "= 2 3 +";
+    cellule.nomcellule = "A1";
+    cellule.chainecarac = chainecarac;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule);
+
+    analyse(&cellule);
+    evaluation(&cellule);
+
+    printf("%s\n",cellule.chainecarac);
+    printf("%lf\n",cellule.valeur);
+
+    s_cellule cellule1;
+    char* chainecarac1= "= 12 A1 -";
+    cellule1.nomcellule = "A2";
+    cellule1.chainecarac = chainecarac1;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule1);
+
+    analyse(&cellule1);
+    evaluation(&cellule1);
+
+    printf("%s\n",cellule1.chainecarac);
+    printf("%lf\n",cellule1.valeur);
+
+    printf("\n");
+    printf("%d\n",cellule.nombreDePredecesseur);
 
     return 0;
 }
