@@ -20,17 +20,20 @@ void initialisationOperateur(){
 
 
     feuille.nomfeuille = "feuilletest";
-    feuille.colonneslettre = 26;
-    feuille.lignesnombre = 50;
+    feuille.colonneslettre = COLONNESLETTRE;
+    feuille.lignesnombre = LIGNESNOMBRE;
 
 }
 
 void analyse(s_cellule* cellule){
 
     double valeur = 0.0;
+    int nombreDePredecesseur = 0;
     cellule->token = list_create();
     cellule->valeur = 0.0;
     cellule->nombreDeToken = 0;
+    cellule->nombreDeValeur = 0;
+    cellule->nombreOperateur = 0;
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
     s_cellule* dep = listeCelluleExistant->val;
@@ -43,7 +46,7 @@ void analyse(s_cellule* cellule){
 
     char* tok = strtok(chainecarac," ");
 
-    if(strcmp(tok,"=") == 0){
+    if(strcmp(tok,"=") == 0){//On regarde si c'est une opération
 
         while (tok != NULL) {
 
@@ -55,44 +58,49 @@ void analyse(s_cellule* cellule){
             }
 
 
-            if (valeur != 0.0) {
+            if (sscanf(tok, "%lf", &testdouble) == 1) {// On regarde si c'est un nombre
 
                 new->type = VALUE;
                 new->value.cst = valeur;
                 cellule->token = list_append(cellule->token, new);
 
+                cellule->nombreDeValeur++;
                 cellule->nombreDeToken++;
 
             }
 
-            for (int j = 0; j < 4; ++j) {
+            for (int j = 0; j < NBOPERATEUR; ++j) {//On regarde si c'est un de nos opérateur connu
 
                 if (strcmp(tok, operateur[j].nomoperation) == 0) {
 
 
                     new->type = OPERATOR;
                     new->value.operator = operateur[j].operator;
-
                     cellule->token = list_append(cellule->token, new);
+
+                    cellule->nombreOperateur++;
                     cellule->nombreDeToken++;
                 }
             }
 
 
-            if((sscanf(tok,"%c%d",&testchar, &testint)==2) && (sscanf(tok,"%lf",&testdouble) != 1)){
+            if((sscanf(tok,"%c%d",&testchar, &testint)==2) && (sscanf(tok,"%lf",&testdouble) != 1)){//On s'assure de sont format, puis de ce qu'il contient
 
                 while (listeCelluleExistant->next != NULL) {
 
                     c = list_get_data(listeCelluleExistant);
 
-                    if (strcmp(tok, c->nomcellule) == 0) {
+                    if (strcmp(tok, c->nomcellule) == 0) {// On test si la référence existe déjà
 
 
                         new->type = REF;
                         new->value.ref = listeCelluleExistant->val;
                         cellule->token = list_append(cellule->token, new);
                         dep->refcellule = list_insert(dep->refcellule, cellule);
+
+                        cellule->nombreDeValeur++;
                         cellule->nombreDeToken++;
+                        cellule->nombreDePredecesseur++;
                     }
 
                     listeCelluleExistant = listeCelluleExistant->next;
@@ -114,29 +122,38 @@ void evaluation(s_cellule* cellule){
         return;
     }
 
-    s_token* token = NULL;
-    s_cellule* celluleref;
-    node_t* listetoken = cellule->token;
-    pile_t* pile = pile_creer(cellule->nombreDeToken);
+    if(((cellule->nombreDeValeur)-1) == cellule->nombreOperateur){
 
-    for (int i = 0; i < cellule->nombreDeToken; ++i) {
-        token = list_get_data(listetoken);
+        s_token* token = NULL;
+        s_cellule* celluleref;
+        node_t* listetoken = cellule->token;
+        pile_t* pile = pile_creer(cellule->nombreDeToken);
 
-        if(token->type == VALUE){
-            pile_empiler(pile, token->value.cst);
-        }
-        if(token->type == REF){
-            celluleref = token->value.ref;
-            pile_empiler(pile,celluleref->valeur);
-        }
-        if(token->type == OPERATOR){
-            token->value.operator(pile);
+        for (int i = 0; i < cellule->nombreDeToken; ++i) {// On parcourt tout les tokens qu'on à obtenu grace a analyse
+            token = list_get_data(listetoken);
+
+            if(token->type == VALUE){
+                pile_empiler(pile, token->value.cst);
+            }
+            if(token->type == REF){
+                celluleref = token->value.ref;
+                pile_empiler(pile,celluleref->valeur);
+            }
+            if(token->type == OPERATOR){
+                token->value.operator(pile);
+            }
+
+            listetoken = listetoken->next;
         }
 
-        listetoken = listetoken->next;
+        pile_depiler(pile,&cellule->valeur);
+
     }
+    if(((cellule->nombreDeValeur)-1) != cellule->nombreOperateur){
 
-    pile_depiler(pile,&cellule->valeur);
+        fprintf(stderr,"Error syntaxe cellule: \"%s\"\n",cellule->nomcellule);
+        return ;
+    }
 
     return;
 }
