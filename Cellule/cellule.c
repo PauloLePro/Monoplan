@@ -36,7 +36,7 @@ void analyse(s_cellule* cellule){
     cellule->nombreOperateur = 0;
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
-    s_cellule* celluleprecedente = listeCelluleExistant->val;
+    s_cellule* tete = listeCelluleExistant->val;
 
     char testchar;
     int testint;
@@ -96,12 +96,12 @@ void analyse(s_cellule* cellule){
                         new->type = REF;
                         new->value.ref = listeCelluleExistant->val;
                         cellule->token = list_append(cellule->token, new);
-                        celluleprecedente->refcellule = list_insert(celluleprecedente->refcellule, cellule);
+                        tete->refcellule = list_insert(tete->refcellule, cellule);
 
                         cellule->nombreDeValeur++;
                         cellule->nombreDeToken++;
 
-                        celluleprecedente->nombreDePredecesseur++;
+                        c->nombreDePredecesseur++;
                     }
 
                     listeCelluleExistant = listeCelluleExistant->next;

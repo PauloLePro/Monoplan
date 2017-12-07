@@ -124,6 +124,7 @@ int main(){
     printf("%s\n",cellule.chainecarac);
     printf("%lf\n",cellule.valeur);
 
+
     s_cellule cellule1;
     char* chainecarac1= "= 12 A1 -";
     cellule1.nomcellule = "A2";
@@ -137,7 +138,52 @@ int main(){
     printf("%lf\n",cellule1.valeur);
 
     printf("\n");
-    printf("%d\n",cellule.nombreDePredecesseur);
+    printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
+
+
+    s_cellule cellule2;
+    char* chainecarac2= "= A2 18 +";
+    cellule2.nomcellule = "A3";
+    cellule2.chainecarac = chainecarac2;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule2);
+
+    analyse(&cellule2);
+    evaluation(&cellule2);
+
+
+    printf("%s\n",cellule2.chainecarac);
+    printf("%lf\n",cellule2.valeur);
+
+
+    s_cellule cellule3;
+    char* chainecarac3= "= 2 A2 +";
+    cellule3.nomcellule = "A4";
+    cellule3.chainecarac = chainecarac3;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule3);
+
+    analyse(&cellule3);
+    evaluation(&cellule3);
+
+
+    s_cellule cellule4;
+    char* chainecarac4= "= A1 2 +";
+    cellule4.nomcellule = "A5";
+    cellule4.chainecarac = chainecarac4;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&cellule4);
+
+    analyse(&cellule4);
+    evaluation(&cellule4);
+
+
+    printf("%s\n",cellule3.chainecarac);
+    printf("%lf\n",cellule3.valeur);
+
+    printf("\n");
+    printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
+
+
+    printf("\n");
+    printf("nb predecesseur de A2: %d\n",cellule1.nombreDePredecesseur);
 
     return 0;
 }
