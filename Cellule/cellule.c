@@ -101,7 +101,7 @@ void analyse(s_cellule* cellule){
                         cellule->nombreDeValeur++;
                         cellule->nombreDeToken++;
 
-                        c->nombreDePredecesseur++;
+                        cellule->nombreDePredecesseur++;
                     }
 
                     listeCelluleExistant = listeCelluleExistant->next;
@@ -195,7 +195,7 @@ void soustraction(pile_t* pile){
     pile_depiler(pile,&a);
     pile_depiler(pile,&b);
 
-    result = a-b;
+    result = b-a;
 
     pile_empiler(pile,result);
 
