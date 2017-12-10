@@ -137,6 +137,9 @@ int main(){
     printf("%s\n",cellule1.chainecarac);
     printf("%lf\n",cellule1.valeur);
 
+    printf("%s\n", cellule1.refutilise);
+    printf("%s\n", cellule1.nomcellule);
+
 
     s_cellule cellule2;
     char* chainecarac2= "= A2 18 +";

@@ -22,11 +22,11 @@ typedef struct cellule{
     double valeur;
     node_t* token;
     node_t* refcellule;
+    node_t* refutilise;
 
     int nombreDeToken;
     int nombreOperateur;
     int nombreDeValeur;
-
     int nombreDePredecesseur;
 }s_cellule;
 
