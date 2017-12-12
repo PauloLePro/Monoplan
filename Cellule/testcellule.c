@@ -287,5 +287,7 @@ int main(){
     printf("successeurs de A4 : %s\n", a4.succeseursSommet->val);
     printf("successeurs de A5 : %s\n", a5.succeseursSommet->val);
 
+    graphedevaluation(&d3);
+
     return 0;
 }

@@ -169,27 +169,10 @@ void graphedevaluation(s_cellule* cellule){
         return;
     }
 
-    node_t* celluleAEvaluer = NULL;
     node_t *listeCelluleExistant = feuille.celluleExistant;
-    s_cellule* tmp = NULL;
-
-    while(cellule->succeseursSommet != NULL) {
-
-        celluleAEvaluer = list_append(celluleAEvaluer, cellule->succeseursSommet->val);
-
-        cellule->succeseursSommet = cellule->succeseursSommet->next;
-    }
-
-    celluleAEvaluer
+    s_cellule* tmp = cellule;
 
 
-    while(celluleAEvaluer->next != NULL) {
-
-        analyse(&tmp);
-        evaluation(&tmp);
-
-        celluleAEvaluer = celluleAEvaluer->next;
-    }
 
     return;
 }
