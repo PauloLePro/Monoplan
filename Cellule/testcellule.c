@@ -107,7 +107,7 @@ int main(){
 
     printf("%s\n",cellule4.chainecarac);
     printf("%lf\n",cellule4.valeur);
-*/
+
 
 
     initialisationOperateur();
@@ -135,9 +135,6 @@ int main(){
 
     printf("%s %s\n",cellule1.nomcellule,cellule1.chainecarac);
     printf("%lf\n",cellule1.valeur);
-
-    printf("On à bon ?%s\n", cellule.succeseursSommet->val);
-
 
     s_cellule cellule2;
     char* chainecarac2= "= A2 18 +";
@@ -199,8 +196,11 @@ int main(){
     if(cellule3.succeseursSommet != NULL)
         printf("A5 à comme successeur : null");
 
+
+    graphedevaluation(&cellule);
+
     printf("\n");
-/*
+
     chainecarac= "= 100 25 +";
     cellule.chainecarac = chainecarac;
     analyse(&cellule);
@@ -238,5 +238,54 @@ int main(){
     printf("\n");
     printf("nb predecesseur de A5: %d\n",cellule4.nombreDePredecesseur);
 */
+    initialisationOperateur();
+
+    s_cellule d3;
+    char* chainecarac= "= 5 5 +";
+    d3.nomcellule = "D3";
+    d3.chainecarac = chainecarac;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&d3);
+    analyse(&d3);
+    evaluation(&d3);
+
+
+    s_cellule d2;
+    char* chainecarac2= "= 5 5 +";
+    d2.nomcellule = "D2";
+    d2.chainecarac = chainecarac2;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&d2);
+    analyse(&d2);
+    evaluation(&d2);
+
+    s_cellule a4;
+    char* chainecarac3= "= D3";
+    a4.nomcellule = "A4";
+    a4.chainecarac = chainecarac3;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&a4);
+    analyse(&a4);
+    evaluation(&a4);
+
+
+    s_cellule a5;
+    char* chainecarac4= "= D3 A4 +";
+    a5.nomcellule = "A5";
+    a5.chainecarac = chainecarac4;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&a5);
+    analyse(&a5);
+    evaluation(&a5);
+
+    s_cellule c5;
+    char* chainecarac5= "= D2 A5 +";
+    c5.nomcellule = "C5";
+    c5.chainecarac = chainecarac5;
+    feuille.celluleExistant = list_append(feuille.celluleExistant,&c5);
+    analyse(&c5);
+    evaluation(&c5);
+
+    printf("successeurs de D3 : %s %s\n", d3.succeseursSommet->val, d3.succeseursSommet->next->val);
+    printf("successeurs de D2 : %s\n", d2.succeseursSommet->val);
+    printf("successeurs de A4 : %s\n", a4.succeseursSommet->val);
+    printf("successeurs de A5 : %s\n", a5.succeseursSommet->val);
+
     return 0;
 }
