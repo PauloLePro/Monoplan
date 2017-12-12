@@ -22,7 +22,7 @@ typedef struct cellule{
     double valeur;
     node_t* token;
     node_t* refcellule;
-    node_t* refutilise;
+    node_t* succeseursSommet;
 
     int nombreDeToken;
     int nombreOperateur;
@@ -59,7 +59,7 @@ void division(pile_t* pile);
 void initialisationOperateur();
 void analyse(s_cellule* cellule);
 void evaluation(s_cellule* cellule);
-void graphedevaluation(node_t *listeCelluleExistant);
+void graphedevaluation(s_cellule* cellule);
 
 extern operateur_t operateur[4];
 extern feuille_t feuille;

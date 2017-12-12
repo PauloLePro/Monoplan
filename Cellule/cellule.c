@@ -34,10 +34,11 @@ void analyse(s_cellule* cellule){
     cellule->nombreDeToken = 0;
     cellule->nombreDeValeur = 0;
     cellule->nombreOperateur = 0;
-    cellule->refutilise = NULL;
+    cellule->succeseursSommet = NULL;
     node_t *listeCelluleExistant = feuille.celluleExistant;
     s_cellule* c = NULL;
     s_cellule* tete = listeCelluleExistant->val;
+    cellule->succeseursSommet = NULL;
 
     char testchar;
     int testint;
@@ -98,11 +99,11 @@ void analyse(s_cellule* cellule){
                         new->value.ref = listeCelluleExistant->val;
                         cellule->token = list_append(cellule->token, new);
                         tete->refcellule = list_insert(tete->refcellule, cellule);
-                        cellule->refutilise = list_insert(cellule->refutilise, c->nomcellule);
 
                         cellule->nombreDeValeur++;
                         cellule->nombreDeToken++;
 
+                        c->succeseursSommet = list_insert(c->succeseursSommet, cellule->nomcellule);
                         cellule->nombreDePredecesseur++;
                     }
 
@@ -162,40 +163,7 @@ void evaluation(s_cellule* cellule){
     return;
 }
 
-void graphedevaluation(node_t *listeCelluleExistant){
-    s_cellule* c = NULL;
-
-    c = list_get_data(listeCelluleExistant);
-
-    char *chainecarac = strdup(c->chainecarac);
-
-    char* tok = strtok(chainecarac," ");
-
-    while (listeCelluleExistant->next != NULL) {
-
-        while (tok != NULL){
-
-            while (listeCelluleExistant->next != NULL) {
-                c = list_get_data(listeCelluleExistant);
-
-                if (strcmp(tok, c->nomcellule) == 0){
-                    analyse(listeCelluleExistant->val);
-                    evaluation(listeCelluleExistant->val);
-
-                    c->nombreDePredecesseur--;
-
-                    list_head_remove(listeCelluleExistant);
-                }
-
-                listeCelluleExistant = listeCelluleExistant->next;
-
-            }
-
-            tok = strtok(NULL, " ");
-        }
-
-    }
-
+void graphedevaluation(s_cellule* cellule){
 
 
 

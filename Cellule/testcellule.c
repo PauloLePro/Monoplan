@@ -121,9 +121,8 @@ int main(){
     analyse(&cellule);
     evaluation(&cellule);
 
-    printf("%s\n",cellule.chainecarac);
+    printf("%s %s\n",cellule.nomcellule,cellule.chainecarac);
     printf("%lf\n",cellule.valeur);
-
 
     s_cellule cellule1;
     char* chainecarac1= "= 12 A1 -";
@@ -134,11 +133,10 @@ int main(){
     analyse(&cellule1);
     evaluation(&cellule1);
 
-    printf("%s\n",cellule1.chainecarac);
+    printf("%s %s\n",cellule1.nomcellule,cellule1.chainecarac);
     printf("%lf\n",cellule1.valeur);
 
-    printf("%s\n", cellule1.refutilise);
-    printf("%s\n", cellule1.nomcellule);
+    printf("On à bon ?%s\n", cellule.succeseursSommet->val);
 
 
     s_cellule cellule2;
@@ -151,7 +149,7 @@ int main(){
     evaluation(&cellule2);
 
 
-    printf("%s\n",cellule2.chainecarac);
+    printf("%s %s\n",cellule2.nomcellule,cellule2.chainecarac);
     printf("%lf\n",cellule2.valeur);
 
 
@@ -164,7 +162,7 @@ int main(){
     analyse(&cellule3);
     evaluation(&cellule3);
 
-    printf("%s\n",cellule3.chainecarac);
+    printf("%s %s\n",cellule3.nomcellule,cellule3.chainecarac);
     printf("%lf\n",cellule3.valeur);
 
 
@@ -177,13 +175,8 @@ int main(){
     analyse(&cellule4);
     evaluation(&cellule4);
 
-    printf("%s\n",cellule4.chainecarac);
+    printf("%s %s\n",cellule4.nomcellule,cellule4.chainecarac);
     printf("%lf\n",cellule4.valeur);
-
-
-
-
-
 
 
     printf("\n");
@@ -198,7 +191,16 @@ int main(){
     printf("nb predecesseur de A5: %d\n",cellule4.nombreDePredecesseur);
     printf("\n");
 
+    printf("\n");
+    printf("A1 à comme successeur :%s\n", cellule.succeseursSommet->val);
+    printf("A2 à comme successeur :%s %s\n", cellule1.succeseursSommet->val,cellule1.succeseursSommet->next->val);
+    printf("A3 à comme successeur :%s\n", cellule2.succeseursSommet->val);
+    printf("A4 à comme successeur :%s\n", cellule3.succeseursSommet->val);
+    if(cellule3.succeseursSommet != NULL)
+        printf("A5 à comme successeur : null");
 
+    printf("\n");
+/*
     chainecarac= "= 100 25 +";
     cellule.chainecarac = chainecarac;
     analyse(&cellule);
@@ -219,7 +221,7 @@ int main(){
     printf("%s\n",cellule4.chainecarac);
     printf("%lf\n",cellule4.valeur);
 
-    /*graphedevaluation(feuille.celluleExistant);
+    graphedevaluation(feuille.celluleExistant);
 
     printf("\n");
     printf("nb predecesseur de A1: %d\n",cellule.nombreDePredecesseur);
